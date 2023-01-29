@@ -1,9 +1,9 @@
 {
-  "name": "regex_poem",
+  "name": "rev_regex",
   "version": "0.1.0",
-  "description": "making regex poem",
+  "description": "generating string maching regex",
   "main": "index.js",
-  "repository": "https://github.com/tannakaken/regex_poem.git",
+  "repository": "https://github.com/tannakaken/rev_regex.git",
   "author": "tannakaken <tannakaken@gmail.com>",
   "license": "Apache-2.0",
   "private": false,
