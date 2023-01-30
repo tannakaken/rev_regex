@@ -1,7 +1,7 @@
 {
   "name": "rev_regex",
   "version": "0.1.0",
-  "description": "generating string maching regex",
+  "description": "generating string matching regex",
   "main": "index.js",
   "repository": "https://github.com/tannakaken/rev_regex.git",
   "author": "tannakaken <tannakaken@gmail.com>",
