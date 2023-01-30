@@ -1,6 +1,6 @@
 import {
   characterParser,
-  makeRepititionParser,
+  makeRepetitionParser,
   makeOrParser,
   makeParenParser,
   makeSequenceParser,
@@ -30,7 +30,7 @@ test("test characterParser", () => {
 });
 
 test("test makeKleeneParser", () => {
-  const kleeneParser = makeRepititionParser(characterParser);
+  const kleeneParser = makeRepetitionParser(characterParser);
   const failed = kleeneParser("");
   expect(failed).toBeNull();
   const result = kleeneParser("abc");
@@ -54,7 +54,7 @@ test("test makeKleeneParser", () => {
 });
 
 test("test makeSequenceParser", () => {
-  const kleeneParser = makeRepititionParser(characterParser);
+  const kleeneParser = makeRepetitionParser(characterParser);
   const sequenceParser = makeSequenceParser(kleeneParser);
   const result1 = sequenceParser("");
   if (result1 === null) {
@@ -153,14 +153,14 @@ test("test makeParenParser", () => {
     expect(rest).toBe("bc");
     expect(generator()).toBe("a");
   }
-  
+
   const result2 = parser1("abc");
   expect(result2).toBeNull();
 
   const result3 = parser1("(abc");
   expect(result3).toBeNull();
 
-  const parser2 = makeParenParser(makeRepititionParser(characterParser));
+  const parser2 = makeParenParser(makeRepetitionParser(characterParser));
   const result4 = parser2("(de*)fg");
   if (result4 === null) {
     fail();
@@ -240,7 +240,7 @@ test("parser", () => {
   }
   const result6 = parser("");
   if (result6 === null) {
-    fail()
+    fail();
   } else {
     const [generator, rest] = result6;
     expect(rest).toBe("");
@@ -248,7 +248,7 @@ test("parser", () => {
   }
   const result7 = parser("aaa(bbb");
   if (result7 === null) {
-    fail()
+    fail();
   } else {
     const [generator, rest] = result7;
     expect(rest).toBe("(bbb");
@@ -256,7 +256,7 @@ test("parser", () => {
   }
   const result8 = parser("aaa)bbb");
   if (result8 === null) {
-    fail()
+    fail();
   } else {
     const [generator, rest] = result8;
     expect(rest).toBe(")bbb");
