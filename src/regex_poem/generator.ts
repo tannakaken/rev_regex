@@ -51,7 +51,7 @@ export const makeKleeneGenerator = (
   return kleeneGenerator;
 };
 
-const generateRepitition = (
+const generateRepetition = (
   generator: StringGenerator,
   repetition: number
 ): string => {
@@ -62,21 +62,21 @@ const generateRepitition = (
   return result;
 };
 
-export const makeRepititionGenerator = (
+export const makeRepetitionGenerator = (
   generator: StringGenerator,
   repetition: number
 ): StringGenerator => {
-  return () => generateRepitition(generator, repetition);
+  return () => generateRepetition(generator, repetition);
 };
 
-export const makeBetweenRepititionGenerator = (
+export const makeBetweenRepetitionGenerator = (
   generator: StringGenerator,
   min: number,
   max: number
 ): StringGenerator => {
   return () => {
     const repetition = randomIntBetween(min, max + 1);
-    return generateRepitition(generator, repetition);
+    return generateRepetition(generator, repetition);
   };
 };
 
@@ -85,7 +85,7 @@ export const makePlusGenerator = (
   min = 1
 ): StringGenerator => {
   return makeSequenceGenerator([
-    makeRepititionGenerator(generator, min),
+    makeRepetitionGenerator(generator, min),
     makeKleeneGenerator(generator),
   ]);
 };

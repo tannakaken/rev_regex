@@ -1,6 +1,6 @@
 import {
   characterParser,
-  makeKleeneParser,
+  makeRepititionParser,
   makeOrParser,
   makeParenParser,
   makeSequenceParser,
@@ -30,7 +30,7 @@ test("test characterParser", () => {
 });
 
 test("test makeKleeneParser", () => {
-  const kleeneParser = makeKleeneParser(characterParser);
+  const kleeneParser = makeRepititionParser(characterParser);
   const failed = kleeneParser("");
   expect(failed).toBeNull();
   const result = kleeneParser("abc");
@@ -54,7 +54,7 @@ test("test makeKleeneParser", () => {
 });
 
 test("test makeSequenceParser", () => {
-  const kleeneParser = makeKleeneParser(characterParser);
+  const kleeneParser = makeRepititionParser(characterParser);
   const sequenceParser = makeSequenceParser(kleeneParser);
   const result1 = sequenceParser("");
   if (result1 === null) {
@@ -160,7 +160,7 @@ test("test makeParenParser", () => {
   const result3 = parser1("(abc");
   expect(result3).toBeNull();
 
-  const parser2 = makeParenParser(makeKleeneParser(characterParser));
+  const parser2 = makeParenParser(makeRepititionParser(characterParser));
   const result4 = parser2("(de*)fg");
   if (result4 === null) {
     fail();

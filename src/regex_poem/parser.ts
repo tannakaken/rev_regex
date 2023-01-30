@@ -1,5 +1,7 @@
 import {
+  makeBetweenRepetitionGenerator,
   makeKleeneGenerator,
+  makePlusGenerator,
   makeSampleGenerator,
   makeSequenceGenerator,
   StringGenerator,
@@ -46,7 +48,7 @@ export const escapeParser: Parser = (input) => {
   return characterParser(input.substring(1));
 };
 
-export const makeKleeneParser = (parser: Parser): Parser => {
+export const makeRepetitionParser = (parser: Parser): Parser => {
   return (input) => {
     const result = parser(input);
     if (result === null) {
@@ -55,6 +57,12 @@ export const makeKleeneParser = (parser: Parser): Parser => {
     const [generator, rest] = result;
     if (rest.startsWith("*")) {
       return [makeKleeneGenerator(generator), rest.substring(1)];
+    }
+    if (rest.startsWith("+")) {
+      return [makePlusGenerator(generator), rest.substring(1)]
+    }
+    if (rest.startsWith("?")) {
+      return [makeBetweenRepetitionGenerator(generator, 0, 1), rest.substring(1)];
     }
     return result;
   };
@@ -145,6 +153,6 @@ export const parser: Parser = (input) => {
 };
 const parenParser = makeParenParser(parser);
 const challengeParser = makeChallengeParser([parenParser, escapeParser, strictCharacterParser]);
-const kleeneParser = makeKleeneParser(challengeParser);
+const kleeneParser = makeRepetitionParser(challengeParser);
 const sequenceParser = makeSequenceParser(kleeneParser);
 rootParser = makeOrParser(sequenceParser);
