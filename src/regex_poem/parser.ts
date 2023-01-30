@@ -39,6 +39,13 @@ export const characterParser: Parser = (input) => {
   return [stringToGenerator(char), input.substring(char.length)];
 };
 
+export const escapeParser: Parser = (input) => {
+  if (!input.startsWith("\\")) {
+    return null;
+  }
+  return characterParser(input.substring(1));
+};
+
 export const makeKleeneParser = (parser: Parser): Parser => {
   return (input) => {
     const result = parser(input);
@@ -137,7 +144,7 @@ export const parser: Parser = (input) => {
   return rootParser(input);
 };
 const parenParser = makeParenParser(parser);
-const challengeParser = makeChallengeParser([parenParser, strictCharacterParser]);
+const challengeParser = makeChallengeParser([parenParser, escapeParser, strictCharacterParser]);
 const kleeneParser = makeKleeneParser(challengeParser);
 const sequenceParser = makeSequenceParser(kleeneParser);
 rootParser = makeOrParser(sequenceParser);
